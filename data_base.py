@@ -1,7 +1,8 @@
 import sqlite3
 import hashlib
-import os
 import discord
+from discord.ext import commands
+from dotenv import load_dotenv
 
 #!funciones hash
 #*hash_generator....................................................................../
@@ -29,15 +30,15 @@ def make_base():
 def id_table():
     id_table = sqlite3.connect("scans.db")  #creacion de tablas
     command_table = id_table.cursor()
-    command_table.execute("CREATE TABLE IF NOT EXISTS server_bot(id_hash TEXT PRIMARY KEY, trigger_alerts TEXT,)")
+    command_table.execute("CREATE TABLE IF NOT EXISTS server_bot(id_hash TEXT PRIMARY KEY, trigger_alerts TEXT)")
     id_table.commit()
     id_table.close()
 #*................................................................................../
 
-def save_result(hash_variable, result_variable):
+def save_result(hash_variable, result_variable, file_name_variable):
     save_result = sqlite3.connect("scans.db")
     command_save = save_result.cursor()
-    command_save.execute("INSERT OR IGNORE INTO base_bot(hash, trigger, file_name) VALUES (?, ?)", (hash_variable, result_variable))
+    command_save.execute("INSERT OR IGNORE INTO base_bot(hash, trigger, file_name) VALUES (?, ?, ?)", (hash_variable, result_variable, file_name_variable))
     save_result.commit()
     save_result.close()
 #*................................................................................../

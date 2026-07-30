@@ -1,21 +1,19 @@
-# 1. Importamos las librerías necesarias (incluyendo tu data_base)
+
 import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import data_base  
 import re
-# 2. Cargamos las variables secretas del archivo .env
-load_dotenv()
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
+import vt
 
+load_dotenv(override=True)
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+VIRUSTOTAL_API_KEY = os.getenv("virustotal_key")
 intents = discord.Intents.default()
 intents.message_content = True
-
+print(bool(VIRUSTOTAL_API_KEY))
 bot = commands.Bot(command_prefix="$", intents=intents)
-
-
 
 #*  EVENTOS........................................................................./
 @bot.event
@@ -45,17 +43,37 @@ async def scan(ctx): #funcion recibe lo que mando el usuario en el chat de disco
     file_name = temporal_file.filename  #se obtiene el nombre del archivo subido
     await temporal_file.save(file_name)
     file_whit_hash = data_base.machine_hash(file_name) #se transforma el archivo en hash para poder guardarlo en la base de datos y compararlo con otros hashes
-    results = data_base.lock_hash(file_whit_hash)   #se busca el hash en la base de datos para ver si ya existe o no, si existe se devuelve el resultado, si no existe se guarda el hash y el resultado en la base de datos
-    if results:                                         # se crea una condicional para ver si el hash ya existe en la base de datos, si existe se envia un mensaje al usuario diciendo que el archivo ya estaba guardado en la base de datos, si no existe se guarda el hash y el resultado en la base de datos
-        await ctx.send(f"este archivo ya estaba guardado en la base: **{file_whit_hash}**")
-    else:
-        await ctx.send("No se encontró ningún resultado para el hash del archivo.")
-        data_base.save_result(file_whit_hash, "Limpio (Simulado)")
+    results = data_base.lock_hash(file_whit_hash)
 
-    if os.path.exists(file_name): # se elimina el archivo temporal subido por el usuario para no ocupar espacio en el servidor
+    client =  vt.Client(VIRUSTOTAL_API_KEY)
+
+    if results:
+         await ctx.send(f"este archivo ya estaba guardado en la base de datos. Estado: **{results}** ")
+
+    else:
+        try:
+                file_info = await client.get_object_async(f"/files/{file_whit_hash}")
+                stats =  file_info.last_analysis_stats
+                malicious = stats["malicious"]
+                
+                if malicious > 0:
+                    resultado = f"este archivo tiene {malicious} detecciones"
+                else:
+                    resultado = "archivo limpio"
+        except vt.APIError as e:
+                if e.code == "NotFoundError":
+                    resultado = "archivo no encontrado en virustotal"
+                else:
+                    resultado = "error de consulta"
+        finally:
+                await client.close_async()
+
+        data_base.save_result(file_whit_hash, resultado, file_name)
+        await ctx.send(f"Resultado del análisis: **{resultado}** (Hash: `{file_whit_hash}`)")
+
+    if os.path.exists(file_name): 
         os.remove(file_name)
 
-    #*hasta aqui llega las funciones de la base de datos, ahora se puede agregar mas funciones para el bot, como por ejemplo, enviar un mensaje al usuario si el archivo es malicioso o no, o enviar un mensaje al canal si el archivo es malicioso o no, etc.
 
 #! comando $quiensoy
 @bot.command()
@@ -98,22 +116,22 @@ async def calcula(ctx, *, operacion: str):
     await ctx.send(f"resultado = **{calculo_final}**")
 
 #Aqui estou colocando [from] ya que indica que viene del archivo (data_base) y al colocar import (get_history) estoy llamando al codigo creado por daniel
-from data_base import get_history
-@bot.command(aliases=['historial_cmd', 'historia',])
-async def historial(ctx):
-    registros = get_history()
-    if not registros:
-        await ctx.send ('**No hay ningun registro por el momento**')
-        return
+#@bot.command(aliases=['historial_cmd', 'historia',])
+#async def historial(ctx):
+ #   registros = get_history()
+  #  if not registros:
+   #     await ctx.send ('**No hay ningun registro por el momento**')
+    #    return
 #Aqui use la funcion Embed que me permite darle color a la interfaz del mensaje
 #Tambien coloque un titulo y una descripcion para el mensaje para cuando el usuario ejecute el comando para ver su Historial de calculos le aparezca un mensaje indicandole que esos son los datos que tenemos almacenado en la base de datos
-    embed = discord.Embed (
-        title = "**Historial de  registros guardados en nuestra base de datos**", 
-        description = "Aqui tienes los 10 ultimos calculos realizados por ti, registrados en nuestra base de datos",
-        Color=discord.Color.Blue() 
-        )
+    #embed = discord.Embed (
+     #   title = "**Historial de  registros guardados en nuestra base de datos**", 
+      #  description = "Aqui tienes los 10 ultimos calculos realizados por ti, registrados en nuestra base de datos",
+       # Color=discord.Color.Blue() 
+        #)
         
-    texto_hitorial=""
-    for i (nombre_archivo, comando) in enumerate(registros, start=1): 
-    texto_hitorial += "f**{i}.** Archivo "
+    #texto_hitorial=""
+ #   for i (nombre_archivo, comando) in enumerate(registros, start=1): 
+#    texto_hitorial += "f**{i}.** Archivo "
+
 bot.run(DISCORD_TOKEN)
