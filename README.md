@@ -69,16 +69,77 @@
              [ Eliminar archivo temporal ]
 
 ```
+---
+
+## Instalación y Configuración Local Sigue estos pasos detallados para clonar e iniciar el bot en tu entorno local: 
+1)Clonar el repositorioAbre tu terminal y descarga el código fuente del proyecto:
+```text
+Bash
+git clone https://github.com/tu_usuario/bot_an.git
+cd bot_an 
+```
+2)Crear y activar un entorno virtualCrea un entorno de Python aislado para gestionar las dependencias:
+```text
+Bash
+python3 -m venv myenv
+source myenv/bin/activate
+```
+3)Instalar dependenciasInstala las librerías necesarias especificadas en el archivo requirements.txt:
+```text
+Bash
+pip install -r requirements.txt
+```
+4)Configurar variables de entorno (.env)Crea un archivo llamado .env en la raíz del proyecto para colocar tus credenciales de forma segura:
+```text
+Fragmento de código
+DISCORD_TOKEN=tu_discord_bot_token_aqui
+virustotal_key=tu_virustotal_api_key_aqui
+```
+5)Iniciar el BotEjecuta el script principal para conectar el bot a Discord:
+```text
+Bash
+python3 bot.py
+```
+---
+## 📜 Lista de Comandos
+
+| Comando | Parámetros | Descripción |
+| :--- | :--- | :--- |
+| `$scan` | *(Archivo adjunto)* | Analiza el archivo adjunto y devuelve el reporte de seguridad. |
+| `$calcula` | `<operación>` | Resuelve operaciones aritméticas (Ejemplo: `$calcula 10 * 5`). |
+| `$quiensoy` | Ninguno | Muestra información del usuario, canal y servidor actual. |
+| `$hello` | Ninguno | Responde con un saludo básico para comprobar disponibilidad. |
+
+---
+
 <div align="center">
 
-⚙️ Instalación y Configuración LocalSigue estos pasos detallados para clonar e iniciar el bot en tu entorno local:1. Clonar el repositorioAbre tu terminal y descarga el código fuente del proyecto:Bashgit clone https://github.com/tu_usuario/bot_an.git
-cd bot_an
-2. Crear y activar un entorno virtualCrea un entorno de Python aislado para gestionar las dependencias:Bashpython3 -m venv myenv
-source myenv/bin/activate
-3. Instalar dependenciasInstala las librerías necesarias especificadas en el archivo requirements.txt:Bashpip install -r requirements.txt
-4. Configurar variables de entorno (.env)Crea un archivo llamado .env en la raíz del proyecto para colocar tus credenciales de forma segura:Fragmento de códigoDISCORD_TOKEN=tu_discord_bot_token_aqui
-virustotal_key=tu_virustotal_api_key_aqui
-5. Iniciar el BotEjecuta el script principal para conectar el bot a Discord:Bashpython3 bot.py
-📜 Lista de ComandosComandoParámetrosDescripción$scan(Archivo adjunto)Analiza el archivo adjunto y devuelve el reporte de seguridad.  $calcula<operación>Resuelve operaciones aritméticas (Ejemplo: $calcula 10 * 5).  $quiensoyNingunoMuestra información del usuario, canal y servidor actual.  $helloNingunoResponde con un saludo básico para comprobar disponibilidad.  Desarrollado con ❤️ en Python por d4hack
+Desarrollado con ❤️ en Python por **d4hack**
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
