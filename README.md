@@ -114,7 +114,7 @@ python3 bot.py
 
 <div align="center">
 
-Desarrollado con ❤️ en Python por **d4hack**
+Desarrollado en Python por **d4hack** **pablo_navaja**
 
 </div>
 
