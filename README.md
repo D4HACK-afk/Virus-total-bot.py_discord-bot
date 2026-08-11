@@ -48,7 +48,7 @@
 ```text
        [ Adjunto enviado en Discord ]
                      │
-                     ▼
+                 s    ▼
         [ Descarga temporal local ]
                      │
                      ▼
@@ -68,7 +68,8 @@
                             ▼
              [ Eliminar archivo temporal ]
 
-
+```
+<div align="center">
 
 ⚙️ Instalación y Configuración LocalSigue estos pasos detallados para clonar e iniciar el bot en tu entorno local:1. Clonar el repositorioAbre tu terminal y descarga el código fuente del proyecto:Bashgit clone https://github.com/tu_usuario/bot_an.git
 cd bot_an
@@ -79,3 +80,5 @@ source myenv/bin/activate
 virustotal_key=tu_virustotal_api_key_aqui
 5. Iniciar el BotEjecuta el script principal para conectar el bot a Discord:Bashpython3 bot.py
 📜 Lista de ComandosComandoParámetrosDescripción$scan(Archivo adjunto)Analiza el archivo adjunto y devuelve el reporte de seguridad.  $calcula<operación>Resuelve operaciones aritméticas (Ejemplo: $calcula 10 * 5).  $quiensoyNingunoMuestra información del usuario, canal y servidor actual.  $helloNingunoResponde con un saludo básico para comprobar disponibilidad.  Desarrollado con ❤️ en Python por d4hack
+
+</div>
