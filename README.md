@@ -1,6 +1,6 @@
 <div align="center">
 
-# bot_an — Security & Malware Scanner Bot
+# Virus_total_API-bot — Security & Malware Scanner Bot
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Discord.py](https://img.shields.io/badge/Discord.py-v2.0%2B-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discordpy.readthedocs.io/)
