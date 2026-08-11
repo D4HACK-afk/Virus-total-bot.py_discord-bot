@@ -1,1 +1,6 @@
 .env
+/__pycache__
+/myenv
+scans.db
+/practicas
+/archivos_practica
