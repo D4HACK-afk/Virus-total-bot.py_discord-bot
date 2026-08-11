@@ -15,7 +15,7 @@
 
 ## Descripción del Proyecto
 
-**Virus_total_API-bot* es una herramienta desarrollada en Python orientada a la automatización de análisis de seguridad en comunidades de Discord Permite a los usuarios verificar si archivos adjuntos (imágenes, ejecutables, documentos) contienen malware sin exponer binarios sensibles a terceros y optimizando el consumo de cuotas de API externas mediante almacenamiento en caché local.
+**Virus_total_API-bot** es una herramienta desarrollada en Python orientada a la automatización de análisis de seguridad en comunidades de Discord Permite a los usuarios verificar si archivos adjuntos (imágenes, ejecutables, documentos) contienen malware sin exponer binarios sensibles a terceros y optimizando el consumo de cuotas de API externas mediante almacenamiento en caché local.
 
 ---
 
