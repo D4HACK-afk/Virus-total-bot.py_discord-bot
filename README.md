@@ -67,3 +67,26 @@
                             │
                             ▼
              [ Eliminar archivo temporal ]
+
+#1) Instalación y Configuración Local
+
+git clone [https://github.com/tu_usuario/bot_an.git](https://github.com/tu_usuario/bot_an.git)
+cd bot_an
+
+#2) Crear y activar un entorno virtual
+
+python3 -m venv myenv
+source myenv/bin/activate
+
+#3) Instalar dependencias
+
+pip install -r requirements.txt
+
+#4) Configurar variables de entorno (.env)
+
+DISCORD_TOKEN=tu_discord_bot_token_aqui
+virustotal_key=tu_virustotal_api_key_aqui
+
+#5)Iniciar el Bot
+
+python3 bot.py
