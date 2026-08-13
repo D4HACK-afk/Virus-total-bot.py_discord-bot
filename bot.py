@@ -15,6 +15,10 @@ intents.message_content = True
 print(bool(VIRUSTOTAL_API_KEY))
 bot = commands.Bot(command_prefix="$", intents=intents)
 
+#*  CSS........................................................................./
+from funciones import cargar_css
+cargar_css()
+
 #*  EVENTOS........................................................................./
 @bot.event
 async def on_ready():

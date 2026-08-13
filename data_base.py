@@ -60,3 +60,6 @@ def get_history():
     get_history.close() 
     return history_result 
 #*................................................................................../
+def cargar_css(ruta_archivo="styles.css"):
+    with open(ruta_archivo, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True) #!funcion que invoca el estilo.css para el codigo fuente
